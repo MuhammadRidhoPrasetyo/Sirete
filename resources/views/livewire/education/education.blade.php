@@ -1,12 +1,13 @@
 <?php
 
-use App\Models\BloodType;
+use App\Models\Education;
 use Livewire\Volt\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 new class extends Component {
+
     use WithPagination;
 
     public string $search = '';
@@ -15,15 +16,14 @@ new class extends Component {
 
     public array $sortBy = ['column' => 'name', 'direction' => 'asc'];
 
-    // Table headers
     public function headers(): array
     {
-        return [['key' => 'id', 'label' => '#', 'class' => 'w-1'], ['key' => 'name', 'label' => 'Golongan Darah', 'class' => 'text-center']];
+        return [['key' => 'id', 'label' => '#', 'class' => 'w-1'], ['key' => 'name', 'label' => 'Pendidikan', 'class' => 'text-center']];
     }
 
-    public function bloodtypes(): LengthAwarePaginator
+    public function educations(): LengthAwarePaginator
     {
-        return BloodType::query()
+        return Education::query()
             ->when($this->search, fn($q) => $q->where('name', 'like', "%$this->search%"))
             ->orderBy(...array_values($this->sortBy))
             ->paginate(10); // No more `->get()`
@@ -32,15 +32,15 @@ new class extends Component {
     public function with(): array
     {
         return [
-            'bloodtypes' => $this->bloodtypes(),
+            'educations' => $this->educations(),
             'headers' => $this->headers(),
         ];
     }
+
 }; ?>
 
 <div>
-
-    <x-header title="Golongan Darah" subtitle="Golongan Darah">
+    <x-header title="Pendidikan" subtitle="Pendidikan">
         <x-slot:middle class="!justify-end">
             <x-input icon="o-bolt" placeholder="Search..." wire:model.live='search' />
         </x-slot:middle>
@@ -49,7 +49,7 @@ new class extends Component {
     <!-- TABLE  -->
     <x-card>
         {{-- <x-input label="Inline label" inline class="w-50" /> --}}
-        <x-table :headers="$headers" :rows="$bloodtypes" :sort-by="$sortBy" with-pagination>
+        <x-table :headers="$headers" :rows="$educations" :sort-by="$sortBy" with-pagination>
 
         </x-table>
     </x-card>
