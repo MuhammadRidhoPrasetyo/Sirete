@@ -5,7 +5,6 @@ use Livewire\Volt\Component;
 use Illuminate\Support\Collection;
 
 new class extends Component {
-
     public string $search = '';
 
     public bool $drawer = false;
@@ -15,18 +14,12 @@ new class extends Component {
     // Table headers
     public function headers(): array
     {
-        return [
-            ['key' => 'id', 'label' => '#', 'class' => 'w-1'],
-            ['key' => 'name', 'label' => 'Jenis Kelamin', 'class' => 'text-center'],
-            ['key' => 'description', 'label' => 'Keterangan'],
-        ];
+        return [['key' => 'id', 'label' => '#', 'class' => 'w-1'], ['key' => 'name', 'label' => 'Jenis Kelamin', 'class' => 'text-center'], ['key' => 'description', 'label' => 'Keterangan']];
     }
 
     public function genders(): Collection
     {
-        $genders = Gender::query()
-                ->toBase()
-                ->get();
+        $genders = Gender::query()->toBase()->get();
         // dd($genders);
         return collect($genders)
             ->sortBy([[...array_values($this->sortBy)]])
@@ -39,13 +32,13 @@ new class extends Component {
     {
         return [
             'genders' => $this->genders(),
-            'headers' => $this->headers()
+            'headers' => $this->headers(),
         ];
     }
-
 }; ?>
 
 <div>
+
     <!-- TABLE  -->
     <x-card>
         <x-table :headers="$headers" :rows="$genders" :sort-by="$sortBy">

@@ -1,13 +1,12 @@
 <?php
 
-use App\Models\Education;
+use App\Models\MaritalStatus;
 use Livewire\Volt\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 new class extends Component {
-
     use WithPagination;
 
     public string $search = '';
@@ -21,10 +20,9 @@ new class extends Component {
         return [['key' => 'id', 'label' => '#', 'class' => 'w-1'], ['key' => 'name', 'label' => 'Pendidikan', 'class' => 'text-center']];
     }
 
-    public function educations(): LengthAwarePaginator
+    public function maritalstatuses(): LengthAwarePaginator
     {
-        return Education::query()
-        ->orderBy('id','asc')
+        return MaritalStatus::query()
             ->when($this->search, fn($q) => $q->where('name', 'like', "%$this->search%"))
             ->orderBy(...array_values($this->sortBy))
             ->paginate(10); // No more `->get()`
@@ -33,15 +31,14 @@ new class extends Component {
     public function with(): array
     {
         return [
-            'educations' => $this->educations(),
+            'maritalstatuses' => $this->maritalstatuses(),
             'headers' => $this->headers(),
         ];
     }
-
 }; ?>
 
 <div>
-    <x-header title="Pendidikan" subtitle="Pendidikan">
+    <x-header title="Status Perkawinan" subtitle="Daftar Status Perkawinan">
         <x-slot:middle class="!justify-end">
             <x-input icon="o-bolt" placeholder="Search..." wire:model.live='search' />
         </x-slot:middle>
@@ -50,7 +47,7 @@ new class extends Component {
     <!-- TABLE  -->
     <x-card>
         {{-- <x-input label="Inline label" inline class="w-50" /> --}}
-        <x-table :headers="$headers" :rows="$educations" :sort-by="$sortBy" with-pagination>
+        <x-table :headers="$headers" :rows="$maritalstatuses" :sort-by="$sortBy" with-pagination>
 
         </x-table>
     </x-card>

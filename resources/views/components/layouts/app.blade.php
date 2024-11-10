@@ -52,14 +52,16 @@
                 @endif
 
                 <x-menu-item title="Hello" icon="o-sparkles" link="/" />
+                <x-menu-item title="Penduduk" icon="m-user" link="/" />
+                <x-menu-item title="Kepala Keluarga" icon="m-user-group" link="/" />
                 <x-menu-sub title="Settings" icon="o-cog-6-tooth">
-                    <x-menu-item title="Agama" icon="o-arrow-long-right" link="####" />
-                    <x-menu-item title="Pekerjaan" icon="o-arrow-long-right" link="####" />
+                    <x-menu-item title="Agama" icon="o-arrow-long-right" link="{{ route('religion') }}" />
+                    <x-menu-item title="Pekerjaan" icon="o-arrow-long-right" link="{{ route('job') }}" />
                     <x-menu-item title="Pendidikan" icon="o-arrow-long-right" link="{{ route('education') }}" />
                     <x-menu-item title="Jenis Kelamin" icon="o-arrow-long-right" link="{{ route('gender') }}" />
                     <x-menu-item title="Golongan Darah" icon="o-arrow-long-right" link="{{ route('bloodtype') }}" />
-                    <x-menu-item title="Status Perkawinan" icon="o-arrow-long-right" link="####" />
-                    <x-menu-item title="Hubungan Keluarga" icon="o-arrow-long-right" link="####" />
+                    <x-menu-item title="Status Perkawinan" icon="o-arrow-long-right" link="{{ route('maritalstatus') }}" />
+                    <x-menu-item title="Hubungan Keluarga" icon="o-arrow-long-right" link="{{ route('familyrelationship') }}" />
                 </x-menu-sub>
             </x-menu>
         </x-slot:sidebar>
